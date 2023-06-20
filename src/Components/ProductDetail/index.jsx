@@ -5,7 +5,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid"; //Añadiendiendo iconos c
 
 const ProductDetail = () => {
   const context = useContext(ShoppingCartContext); // importamos el contexto para poder acceder al estado global, donde se encuentra "count" y "setCount" para que el contador del carrito funcione
-  console.log("PRODUCT TO SHOW", context.productToShow);
+ // console.log("PRODUCT TO SHOW", context.productToShow);
 
   return (
     //Creando el menu despegable
@@ -18,10 +18,10 @@ const ProductDetail = () => {
         <h2 className="font-medium text-xl">Detail</h2>
         <div onClick={() => context.closeProductDetail()}>
           {/* El icono lo podemos añadir como un componente */}
-          <XMarkIcon className="h-6 w-6 text-black-500" />
+          <XMarkIcon className="h-6 w-6 text-black-500 cursor-pointer" />
         </div>
       </div>
-      <figure>
+      <figure className="px-6">
         <img
           className="w-full h-full rounded-lg"
           src={context.productToShow.image}
@@ -29,9 +29,10 @@ const ProductDetail = () => {
           srcset=""
         />
       </figure>
-      <p>
-        <span>{context.productToShow.price} </span>
-        <span>{context.productToShow.title} </span>
+      <p className="flex flex-col p-6">
+        <span className="font-medium text-2xl mb-2">{context.productToShow.price} </span>
+        <span className="font-medium text-md">{context.productToShow.title} </span>
+        {/*    */}
       </p>
     </aside>
   );

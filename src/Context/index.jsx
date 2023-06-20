@@ -12,8 +12,11 @@ export const ShoppingCartProvider = ({ children }) => {
   const openProductDetail = () => setIsProductDetailOpen(true);
   const closeProductDetail = () => setIsProductDetailOpen(false);
 
-  //product detal + show product
+  //product detail + show product
   const [productToShow, setProductToShow] = useState({});
+
+  // Shoping Cart - add products to cart
+  const [cartProducts, setCartProducts] = useState([]);
 
   return (
     //El proveedor encapsulara todos los componentes que tenemos en App, para poder darle la informacion
@@ -27,6 +30,8 @@ export const ShoppingCartProvider = ({ children }) => {
         isProductDetailOpen,
         productToShow,
         setProductToShow,
+        cartProducts,
+        setCartProducts,
       }}
     >
       {children}
