@@ -5,10 +5,15 @@ export const ShoppingCartContext = createContext(); //Creamos el contexto, podem
 //Necesitamos un provider, para dar la informacion a los componentes
 export const ShoppingCartProvider = ({ children }) => {
   const [count, setCount] = useState(0); //estado de la cantidad de articulos en el carrito de compra
+
+  //State in charge to open and close the window
   const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
 
   const openProductDetail = () => setIsProductDetailOpen(true);
   const closeProductDetail = () => setIsProductDetailOpen(false);
+
+  //product detal + show product
+  const [productToShow, setProductToShow] = useState({});
 
   return (
     //El proveedor encapsulara todos los componentes que tenemos en App, para poder darle la informacion
@@ -20,6 +25,8 @@ export const ShoppingCartProvider = ({ children }) => {
         openProductDetail,
         closeProductDetail,
         isProductDetailOpen,
+        productToShow,
+        setProductToShow,
       }}
     >
       {children}

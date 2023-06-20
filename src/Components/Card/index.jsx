@@ -5,10 +5,15 @@ import { PlusIcon } from "@heroicons/react/24/solid"; //Añadiendiendo iconos co
 const Card = (data) => {
   const context = useContext(ShoppingCartContext); // importamos el contexto para poder acceder al estado global, donde se encuentra "count" y "setCount" para que el contador del carrito funcione
 
+  const showProduct = (productDetail) => {
+    context.openProductDetail();
+    context.setProductToShow(productDetail);
+  };
+
   return (
     <div
       className="bg-white cursor-pinter w-56 h-60 rounded-lg"
-      onClick={() => context.openProductDetail()}
+      onClick={() => showProduct(data.data)}
     >
       <figure className="relative mb-2 w-full h-4/5">
         <span className="absolute bottom-0 left-0 bg-white/60 rounded-lg text-black text-xs m-2 px-3 py-0.5">
