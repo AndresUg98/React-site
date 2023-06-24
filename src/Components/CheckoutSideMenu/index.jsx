@@ -10,6 +10,13 @@ const CheckoutSideMenu = () => {
 
   console.log("CART: ", context.cartProducts);
 
+  const handleDelete = (id) => {
+    const filteredProducts = context.cartProducts.filter(
+      (product) => product.id != id
+    );
+    context.setCartProducts(filteredProducts);
+  };
+
   return (
     //Creando el menu despegable
     <aside
@@ -25,13 +32,15 @@ const CheckoutSideMenu = () => {
         </div>
       </div>
 
-      <div className="px-6">
+      <div className="px-6 overflow-y-scroll">
         {context.cartProducts.map((product) => (
           <OrderCard
             key={product.id}
+            id={product.id}
             title={product.title}
             imageUrl={product.image}
             price={product.price}
+            handleDelete={handleDelete}
           />
         ))}
       </div>
