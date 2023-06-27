@@ -22,6 +22,9 @@ export const ShoppingCartProvider = ({ children }) => {
   // Shoping Cart - add products to cart
   const [cartProducts, setCartProducts] = useState([]);
 
+  //Shoping cart . order
+  const [order, setOrder] = useState([]);
+
   return (
     //El proveedor encapsulara todos los componentes que tenemos en App, para poder darle la informacion
     //En el index.jsx de App nuestro ShoppingCartProvider esta envolviendo toda la aplicacion perminiento tener un globalContext para pasar todos los estados
@@ -39,6 +42,8 @@ export const ShoppingCartProvider = ({ children }) => {
         isCheckoutSideMenuOpen,
         openCheckoutSideMenu,
         closeCheckoutSideMenu,
+        order,
+        setOrder,
       }}
     >
       {children}
