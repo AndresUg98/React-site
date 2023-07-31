@@ -7,6 +7,12 @@ import OrderCard from "../../Components/OrderCard";
 
 function MyOrder() {
   const context = useContext(ShoppingCartContext); // importamos el contexto para poder acceder al estado global, donde se encuentra "count" y "setCount" para que el contador del carrito funcione
+
+  const currentPath = window.location.pathname;
+  let index = currentPath.substring(currentPath.lastIndexOf("/") + 1);
+
+  if (index === "last") index = context.order?.length - 1;
+
   return (
     <Layout>
       <div className="flex items-center justify-center w-80 relative mb-6">
@@ -17,7 +23,7 @@ function MyOrder() {
         <h1>MyOrder</h1>
       </div>
       <div className="flex flex-col w-80">
-        {context.order?.slice(-1)[0].products.map((product) => (
+        {context.order?.[index]?.products.map((product) => (
           <OrderCard
             key={product.id}
             id={product.id}
