@@ -1,22 +1,27 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { ShoppingCartContext } from "../../Context";
 import Layout from "../../Components/Layout";
 import Card from "../../Components/Card";
 import ProductDetail from "../../Components/ProductDetail";
 
 function Home() {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products") //nos permite hacer el llamado para pedir los productos
-      .then((res) => res.json()) //una vez recibina la respuesta la convertimos a JSON para poder leerla
-      .then((json) => setItems(json)); // Una vez recibida la promesa del JSON la guardamos en setItems
-  }, []);
+  const context = useContext(ShoppingCartContext); // importamos el contexto para poder acceder al estado global, donde se encuentra "count" y "setCount" para que el contador del carrito funcione
 
   return (
     <Layout>
-      Home
+      <div className="flex items-center justify-center w-80 relative mb-4">
+        <h1 className="font-medium text-xl">Exclusive Products</h1>
+      </div>
+
+      <input
+        type="text"
+        className="rounded-lg border-black w-80 p-4 mb-4"
+        placeholder="Search a product"
+        onChange={(event) => context.setSearchByTitle(event.target.value)}
+      />
+
       <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
-        {items?.map((item) => (
+        {context.items?.map((item) => (
           <Card key={item.id} data={item} />
         ))}
       </div>

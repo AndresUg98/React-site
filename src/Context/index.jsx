@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 export const ShoppingCartContext = createContext(); //Creamos el contexto, podemos usar cualquier nombre
 
@@ -25,6 +25,18 @@ export const ShoppingCartProvider = ({ children }) => {
   //Shoping cart . order
   const [order, setOrder] = useState([]);
 
+  // Get products
+  const [items, setItems] = useState([]);
+
+  // Get products by title
+  const [searchByTitle, setSearchByTitle] = useState([]);
+
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products") //nos permite hacer el llamado para pedir los productos
+      .then((res) => res.json()) //una vez recibina la respuesta la convertimos a JSON para poder leerla
+      .then((json) => setItems(json)); // Una vez recibida la promesa del JSON la guardamos en setItems
+  }, []);
+
   return (
     //El proveedor encapsulara todos los componentes que tenemos en App, para poder darle la informacion
     //En el index.jsx de App nuestro ShoppingCartProvider esta envolviendo toda la aplicacion perminiento tener un globalContext para pasar todos los estados
@@ -44,6 +56,10 @@ export const ShoppingCartProvider = ({ children }) => {
         closeCheckoutSideMenu,
         order,
         setOrder,
+        items,
+        setItems,
+        searchByTitle,
+        setSearchByTitle,
       }}
     >
       {children}
