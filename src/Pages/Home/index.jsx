@@ -7,6 +7,11 @@ import ProductDetail from "../../Components/ProductDetail";
 function Home() {
   const context = useContext(ShoppingCartContext); // importamos el contexto para poder acceder al estado global, donde se encuentra "count" y "setCount" para que el contador del carrito funcione
 
+  const renderView = () => {
+    if (context.searchByTitle?.length > 0) {
+    }
+  };
+
   return (
     <Layout>
       <div className="flex items-center justify-center w-80 relative mb-4">
