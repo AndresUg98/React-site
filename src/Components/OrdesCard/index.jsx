@@ -10,7 +10,7 @@ const OrdersCard = (props) => {
           <span className="font-light">01.02.2023</span>
           <span className="font-light">{totalProducts} articles</span>
         </p>
-        <p className="flex items-center gap-2">
+        <p className="flex items-center gap-2np">
           <span className="font-medium text-2xl">${totalPrice}</span>
           <ChevronRightIcon className="h-6 w-6 text-black-500 cursor-pointer" />
         </p>

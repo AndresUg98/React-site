@@ -28,14 +28,30 @@ export const ShoppingCartProvider = ({ children }) => {
   // Get products
   const [items, setItems] = useState([]);
 
+  // filter products
+  const [filteredItems, setFilteredItems] = useState(null);
+
   // Get products by title
-  const [searchByTitle, setSearchByTitle] = useState([]);
+  const [searchByTitle, setSearchByTitle] = useState(null);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products") //nos permite hacer el llamado para pedir los productos
       .then((res) => res.json()) //una vez recibina la respuesta la convertimos a JSON para poder leerla
       .then((json) => setItems(json)); // Una vez recibida la promesa del JSON la guardamos en setItems
   }, []);
+
+  const filteredItemsByTitle = (items, searchByTitle) => {
+    return items?.filter((item) =>
+      item.title.toLowerCase().includes(searchByTitle.toLowerCase())
+    );
+  };
+
+  useEffect(() => {
+    if (searchByTitle)
+      setFilteredItems(filteredItemsByTitle(items, searchByTitle));
+  }, [items, searchByTitle]);
+
+  console.log(filteredItems, "filteredItems");
 
   return (
     //El proveedor encapsulara todos los componentes que tenemos en App, para poder darle la informacion
