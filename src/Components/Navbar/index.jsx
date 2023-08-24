@@ -14,6 +14,7 @@ const Navbar = () => {
         <li>
           <NavLink
             to="/"
+            onClick={() => context.setSearchByCategory()}
             className={({ isActive, isPending }) =>
               isPending
                 ? "pending"
@@ -27,7 +28,8 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink
-            to="/clothes"
+            to="/jewelery"
+            onClick={() => context.setSearchByCategory("jewelery")}
             className={({ isActive, isPending }) =>
               isPending
                 ? "pending"
@@ -36,12 +38,13 @@ const Navbar = () => {
                 : ""
             }
           >
-            Clothes
+            Jewelery
           </NavLink>
         </li>
         <li>
           <NavLink
             to="/electronics"
+            onClick={() => context.setSearchByCategory("electronics")}
             className={({ isActive, isPending }) =>
               isPending
                 ? "pending"
@@ -55,7 +58,8 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink
-            to="/furnitures"
+            to="/men's clothing"
+            onClick={() => context.setSearchByCategory("men's clothing")}
             className={({ isActive, isPending }) =>
               isPending
                 ? "pending"
@@ -64,12 +68,13 @@ const Navbar = () => {
                 : ""
             }
           >
-            Furnitures
+            Men's clothing
           </NavLink>
         </li>
         <li>
           <NavLink
-            to="/toys"
+            to="/women's clothing"
+            onClick={() => context.setSearchByCategory("women's clothing")}
             className={({ isActive, isPending }) =>
               isPending
                 ? "pending"
@@ -78,13 +83,14 @@ const Navbar = () => {
                 : ""
             }
           >
-            Toys
+            Women's clothing
           </NavLink>
         </li>
 
         <li>
           <NavLink
             to="/others"
+            onClick={() => context.setSearchByCategory("others")}
             className={({ isActive, isPending }) =>
               isPending
                 ? "pending"
@@ -143,7 +149,7 @@ const Navbar = () => {
         </li>
         <li className="flex items-center">
           <ShoppingBagIcon className="h-6 w-6 text-black-500" />
-          <div>{context.count}</div>
+          <div>{context.cartProducts.length}</div>
         </li>
       </ul>
     </nav>

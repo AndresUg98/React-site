@@ -34,6 +34,9 @@ export const ShoppingCartProvider = ({ children }) => {
   // Get products by title
   const [searchByTitle, setSearchByTitle] = useState(null);
 
+  // Get products by category
+  const [searchByCategory, setSearchByCategory] = useState(null);
+
   useEffect(() => {
     fetch("https://fakestoreapi.com/products") //nos permite hacer el llamado para pedir los productos
       .then((res) => res.json()) //una vez recibina la respuesta la convertimos a JSON para poder leerla
@@ -46,12 +49,57 @@ export const ShoppingCartProvider = ({ children }) => {
     );
   };
 
-  useEffect(() => {
-    if (searchByTitle)
-      setFilteredItems(filteredItemsByTitle(items, searchByTitle));
-  }, [items, searchByTitle]);
+  const filteredItemsByCategory = (items, searchByCategory) => {
+    return items?.filter((item) =>
+      item.category.toLowerCase().includes(searchByCategory.toLowerCase())
+    );
+  };
 
-  console.log(filteredItems, "filteredItems");
+  const filterBy = (searchType, items, searchByTitle, searchByCategory) => {
+    if (searchType === "BY_TITLE") {
+      return filteredItemsByTitle(items, searchByTitle);
+    }
+
+    if (searchType === "BY_CATEGORY") {
+      return filteredItemsByCategory(items, searchByCategory);
+    }
+
+    if (searchType === "BY_TITLE_AND_CATEGORY") {
+      return filteredItemsByCategory(items, searchByCategory).filter((item) =>
+        item.title.toLowerCase().includes(searchByTitle.toLowerCase())
+      );
+    }
+
+    if (!searchType) {
+      return items;
+    }
+  };
+
+  useEffect(() => {
+    if (searchByTitle && !searchByCategory) {
+      setFilteredItems(
+        filterBy("BY_TITLE", items, searchByTitle, searchByCategory)
+      );
+    }
+    if (searchByCategory && !searchByTitle) {
+      setFilteredItems(
+        filterBy("BY_CATEGORY", items, searchByTitle, searchByCategory)
+      );
+    }
+    if (!searchByCategory && !searchByTitle) {
+      setFilteredItems(filterBy(null, items, searchByTitle, searchByCategory));
+    }
+    if (searchByTitle && searchByCategory) {
+      setFilteredItems(
+        filterBy(
+          "BY_TITLE_AND_CATEGORY",
+          items,
+          searchByTitle,
+          searchByCategory
+        )
+      );
+    }
+  }, [items, searchByTitle, searchByCategory]);
 
   return (
     //El proveedor encapsulara todos los componentes que tenemos en App, para poder darle la informacion
@@ -77,6 +125,8 @@ export const ShoppingCartProvider = ({ children }) => {
         searchByTitle,
         setSearchByTitle,
         filteredItems,
+        searchByCategory,
+        setSearchByCategory,
       }}
     >
       {children}
