@@ -2,6 +2,29 @@ import { createContext, useState, useEffect } from "react";
 
 export const ShoppingCartContext = createContext(); //Creamos el contexto, podemos usar cualquier nombre
 
+//Inicializando LocalStorage y las variables de account y signOut
+export const initializeLocalStorage = () => {
+  const accountInLocalStorage = localStorage.getItem("account");
+  const signOutInLocalStorage = localStorage.getItem("sign-out");
+
+  let parsedAccount;
+  let parsedSignOut;
+
+  if (!accountInLocalStorage) {
+    localStorage.setItem("account".JSON.stringify({}));
+    parsedAccount = {};
+  } else {
+    parsedAccount = JSON.parse(accountInLocalStorage);
+  }
+
+  if (!signOutInLocalStorage) {
+    localStorage.setItem("sign-out", JSON.stringify(false));
+    parsedSignOut = false;
+  } else {
+    parsedSignOut = JSON.parse(signOutInLocalStorage);
+  }
+};
+
 //Necesitamos un provider, para dar la informacion a los componentes
 export const ShoppingCartProvider = ({ children }) => {
   const [count, setCount] = useState(0); //estado de la cantidad de articulos en el carrito de compra
